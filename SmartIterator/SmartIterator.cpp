@@ -24,7 +24,7 @@ void f(const T& q) {
 }
 
 std::string to_string(int x) {
-	return std::to_string(x) + "parapapa ";
+	return std::to_string(x) + ": ONE MORE NUMBER!";
 }
 
 using filter_f = std::function<bool(int)>;
