@@ -18,11 +18,6 @@ bool is_even(int x) {
 	return (x % 2);
 }
 
-template <class T> 
-void f(const T& q) {
-	std::cout << typeid(q).name();
-}
-
 std::string to_string(int x) {
 	return std::to_string(x) + ": ONE MORE NUMBER!";
 }
