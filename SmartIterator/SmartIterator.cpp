@@ -3,19 +3,63 @@
 
 #include "pch.h"
 #include <iostream>
+#include "transform_view.h"
+#include <vector>
+#include <functional>
+#include <set>
+#include <string>
+
+
+bool is_odd(int x) {
+	return !(x % 2);
+}
+
+bool is_even(int x) {
+	return (x % 2);
+}
+
+template <class T> 
+void f(const T& q) {
+	std::cout << typeid(q).name();
+}
+
+std::string to_string(int x) {
+	return std::to_string(x) + "parapapa ";
+}
+
+using filter_f = std::function<bool(int)>;
+using transform_f = std::function<std::string(int)>;
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	
+	std::vector<int> a = {1, 4, 5, 2, 6, 7, 8, 9, 3};
+	
+	filter_view<int, std::vector<int>, filter_f> b(a.begin(), a.end(), is_odd);
+	
+	for (auto it = b.begin(); it != b.end(); ++it)
+		std::cout << *it << std::endl;
+	
+	transform_view<int, std::vector<int>, filter_f, transform_f, std::string > c(b.begin(), b.end(), to_string);
+	
+	for (auto it = c.begin(); it != c.end(); ++it)
+		std::cout << *it << std::endl;
+	
+	std::cout << "\n\nLet's try initializer list\n\n\n";
+
+	std::initializer_list<int> aa = { 34, 45, 67, 23, 46 };
+
+	filter_view<int, std::initializer_list<int>, std::function<bool(int)> > bb(aa.begin(), aa.end(), is_even);
+
+	for (auto it = bb.begin(); it != bb.end(); ++it)
+		std::cout << *it << std::endl;
+
+	transform_view<int, std::initializer_list<int>, filter_f, transform_f, std::string > cc(bb.begin(), bb.end(), to_string);
+	auto itt = cc.begin();
+	std::cout << *itt << std::endl;
+	for (auto it = cc.begin(); it != cc.end(); ++it)
+		std::cout << *it << std::endl;
+
+
+	getchar();
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
