@@ -18,12 +18,12 @@ public:
 	}
 
 	FilterIterator<Tobj, TContainer, TFunc> begin() {
-		std::cout << "FilterIterator::begin()" << std::endl;
+		DEBUG_LOG_TRACE("FilterIterator::begin()");
 		return FilterIterator<Tobj, TContainer, TFunc>(begin_, end_, filter_function_);
 	}
 
 	FilterIterator<Tobj, TContainer, TFunc>& end() {
-		std::cout << "FilterIterator::end()" << std::endl;
+		DEBUG_LOG_TRACE("FilterIterator::end()");
 		return end_iterator_;
 	}
 	

@@ -2,25 +2,24 @@
 #include <assert.h> 
 #include "filter_view.h"
 
-template <typename Tobj, typename TContainer, typename TFilt, typename TFunc, typename Tout>
-class TransformIterator : public std::iterator <std::random_access_iterator_tag, Tobj>
+template <typename TIterator, typename Tout>
+class TransformIterator
 {
 private:
-	using TIterator = FilterIterator<Tobj, TContainer, TFilt>;
 	TIterator begin_;
 	TIterator end_;
-	TFunc transform_function_;
+	Tout transform_function_;
 public:
 
 	TransformIterator() {}
-	TransformIterator(TIterator const & begin, TIterator const & end, TFunc transform_function)
+	TransformIterator(TIterator const & begin, TIterator const & end, Tout transform_function)
 		:begin_(begin), end_(end), transform_function_(transform_function)
 	{
-		std::cout << "TransformIterator::Constructor" << std::endl;
+		DEBUG_LOG_TRACE("TransformIterator::Constructor");
 	}
 
 	TransformIterator(const TransformIterator& s) {
-		std::cout << "TransformIterator::Copy constructor" << std::endl;
+		DEBUG_LOG_TRACE("TransformIterator::Copy constructor");
 		begin_ = s.begin_;
 		end_ = s.end_;
 		transform_function_ = s.transform_function_;
@@ -28,7 +27,7 @@ public:
 
 
 	TransformIterator& operator=(const TransformIterator& s) {
-		std::cout << "TransformIterator::Copy operator" << std::endl;
+		DEBUG_LOG_TRACE("TransformIterator::Copy operator");
 		begin_ = s.begin_;
 		end_ = s.end_;
 		transform_function_ = s.transform_function_;
@@ -49,7 +48,7 @@ public:
 		return begin_ != s.begin_;
 	}
 
-	Tout operator*() {
+	auto operator*() {
 		assert(begin_ != end_);
 		return transform_function_(*begin_);
 	}

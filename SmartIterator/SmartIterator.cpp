@@ -10,6 +10,8 @@
 #include <string>
 
 
+
+
 bool is_odd(int x) {
 	return !(x % 2);
 }
@@ -35,7 +37,7 @@ int main()
 	for (auto it = b.begin(); it != b.end(); ++it)
 		std::cout << *it << std::endl;
 	
-	transform_view<int, std::vector<int>, filter_f, transform_f, std::string > c(b.begin(), b.end(), to_string);
+	transform_view<FilterIterator<int, std::vector<int>, filter_f>, transform_f> c(b.begin(), b.end(), to_string);
 	
 	for (auto it = c.begin(); it != c.end(); ++it)
 		std::cout << *it << std::endl;
@@ -49,9 +51,8 @@ int main()
 	for (auto it = bb.begin(); it != bb.end(); ++it)
 		std::cout << *it << std::endl;
 
-	transform_view<int, std::initializer_list<int>, filter_f, transform_f, std::string > cc(bb.begin(), bb.end(), to_string);
-	auto itt = cc.begin();
-	std::cout << *itt << std::endl;
+	transform_view<FilterIterator<int, std::initializer_list<int>, filter_f>, transform_f> cc(bb.begin(), bb.end(), to_string);
+	
 	for (auto it = cc.begin(); it != cc.end(); ++it)
 		std::cout << *it << std::endl;
 
